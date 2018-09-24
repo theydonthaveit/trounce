@@ -4,8 +4,11 @@ networks:
   lan:
 
 services:
-  web:
-    build: .
+  nginx:
+    image: "nginx:alpine"
+    restart: on-failure
+  backend:
+    build: ./backend
     volumes:
       - .:/app
     restart: on-failure
@@ -14,6 +17,13 @@ services:
   redis:
     image: "redis:alpine"
     restart: on-failure
+  frontend:
+    build: ./frontend
+    volumes:
+      - .:/app
+    restart: on-failure
+    ports:
+      - "3000:3000"
   neo4j:
     image: "neo4j:latest"
     networks:
@@ -29,5 +39,5 @@ services:
       - "6477:6477"
       - "7687:7687"
     volumes:
-      - ./data/neo4j:/data
+      - ~/data/neo4j/trounce:/data
     restart: on-failure
