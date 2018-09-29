@@ -1,7 +1,9 @@
 version: '3'
 
 networks:
-  lan:
+  neo4j:
+volumes:
+  neo4j:
 
 services:
   nginx:
@@ -10,7 +12,7 @@ services:
   backend:
     build: ./backend
     volumes:
-      - .:/app
+      - ./backend/app:/app
     restart: on-failure
     ports:
      - "5000:80"
@@ -20,14 +22,14 @@ services:
   frontend:
     build: ./frontend
     volumes:
-      - .:/app
+      - ./frontend/src:/app
     restart: on-failure
     ports:
       - "3000:3000"
   neo4j:
     image: "neo4j:latest"
     networks:
-      - lan
+      - neo4j
     environment:
       - NEO4J_AUTH=neo4j/Gamers
       - NEO4J_dbms_connector_http_listen__address=:7474
@@ -39,5 +41,5 @@ services:
       - "6477:6477"
       - "7687:7687"
     volumes:
-      - ~/data/neo4j/trounce:/data
+      - ./data/neo4j:/data
     restart: on-failure

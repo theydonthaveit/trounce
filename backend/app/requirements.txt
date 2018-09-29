@@ -1,0 +1,5 @@
+Quart
+Quart-CORS
+Redis
+gunicorn
+neo4j-driver
