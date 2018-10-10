@@ -2,32 +2,18 @@ import React from 'react'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter'
-
+import { setPostcode, validatePostcode } from '../../modules/postcode'
+ 
 const Home = props => (
   <div>
     <h1>Home</h1>
-    <p>Count: {props.count}</p>
-
     <p>
-      <button onClick={props.increment}>Increment</button>
-      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>
-        Increment Async
-      </button>
+      <input
+        onChange={props.setPostcode}
+        onBlur={props.validatePostcode}
+        disabled={props.requestPostcodeValidation} />
     </p>
-
-    <p>
-      <button onClick={props.decrement}>Decrement</button>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>
-        Decrement Async
-      </button>
-    </p>
-
+    <p>{props.validPostcode}</p>
     <p>
       <button onClick={() => props.changePage()}>
         Go to about page via redux
@@ -36,19 +22,16 @@ const Home = props => (
   </div>
 )
 
-const mapStateToProps = ({ counter }) => ({
-  count: counter.count,
-  isIncrementing: counter.isIncrementing,
-  isDecrementing: counter.isDecrementing
+const mapStateToProps = ({ postcode }) => ({
+    requestPostcodeValidation: postcode.requestPostcodeValidation,
+    validPostcode: postcode.validPostcode
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      increment,
-      incrementAsync,
-      decrement,
-      decrementAsync,
+      setPostcode,
+      validatePostcode,
       changePage: () => push('/about-us')
     },
     dispatch
