@@ -37,10 +37,10 @@ export default (state = initialState, action) => {
             }
 
         case POSTCODE_VALIDATE_IN_PROGRESS:
+            // TODO log the status and additional useful info 
             return {
                 ...state,
-                // TODO make the request work
-                validPostcode: true,
+                validPostcode: action.request.status,
                 requestPostcodeValidation: !state.requestPostcodeValidation
             }
   
@@ -63,19 +63,31 @@ export const setPostcode = (e) => {
     }
 }
 
+
 export const validatePostcode = (e) => {
+    // TODO log the postcode used
+    const { key, target } = e
+
     return dispatch => {
         dispatch({
             type: POSTCODE_VALIDATE_REQUESTED,
-            keyPress: e.key
+            keyPress: key
         })
 
-        dispatch({
-            type: POSTCODE_VALIDATE_IN_PROGRESS,
-            request: fetch(
-                        'https://api.postcodes.io/postcodes/'
-                        + e.target.value)
-                    .then(res => res.json())
-        })
+        // slow down the request for a better UX
+        // a user can see that a request is in progress
+        setTimeout(() => {
+            fetch(
+                'https://api.postcodes.io/postcodes/'
+                + target.value)
+            .then(res => res.json())
+            .then(data => dispatch({
+                    type: POSTCODE_VALIDATE_IN_PROGRESS,
+                    request: data }))
+            .catch((err) => {
+                // TODO - log result
+                console.log(err)
+            })
+        }, 500)
     }
 }

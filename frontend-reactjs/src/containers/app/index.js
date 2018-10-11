@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import Home from '../home'
+import Postcode from '../postcode'
 // import About from '../about'
 
 const App = () => (
@@ -11,7 +11,7 @@ const App = () => (
     </header>
 
     <main>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={Postcode} />
       {/* <Route exact path="/about-us" component={About} /> */}
     </main>
   </div>

@@ -3,17 +3,17 @@ import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { setPostcode, validatePostcode } from '../../modules/postcode'
+import Dropdown from '../dropdown'
  
-const Home = props => (
+const Postcode = props => (
   <div>
-    <h1>Home</h1>
     <p>
       <input
         onChange={props.setPostcode}
         onBlur={props.validatePostcode}
         disabled={props.requestPostcodeValidation} />
+      <Dropdown />
     </p>
-    <p>{props.validPostcode}</p>
     <p>
       <button onClick={() => props.changePage()}>
         Go to about page via redux
@@ -40,4 +40,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(Postcode)
