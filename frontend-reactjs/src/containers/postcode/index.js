@@ -7,7 +7,7 @@ import { FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap'
  
 const Postcode = props => (
   <FormGroup>
-    <Label for="exampleEmail">Valid input</Label>
+    <Label for="exampleEmail">Postcode</Label>
     <Input
       onChange={props.setPostcode}
       onBlur={props.validatePostcode}
@@ -22,7 +22,7 @@ const Postcode = props => (
         ? props.postcodeFeedbackValid
         : props.postcodeFeedbackInvalid
       }</FormFeedback>
-    <FormText>Example help text that remains unchanged.</FormText>
+    <FormText>e.g. XX11 11X</FormText>
   </FormGroup>
 )
 

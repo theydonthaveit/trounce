@@ -4,7 +4,8 @@ export const SET_REGION =
 
 const initialState = {
     regions: ['euw', 'na', 'lck', 'lpl'],
-    region: null
+    region: null,
+    regionSet: false
 }
 
 
@@ -13,7 +14,8 @@ export default (state = initialState, action) => {
         case SET_REGION:
             return {
                 ...state,
-                region: action.region
+                region: action.region,
+                regionSet: true
             }
 
         default:

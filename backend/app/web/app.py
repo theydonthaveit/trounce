@@ -12,17 +12,18 @@ app = cors(app)
 
 
 @app.route('/riot', methods=['GET'])
-async def riot(path):
+async def riot():
     """
     Specific end point for riot
     """
-    return send_from_directory(
-        app.static_folder,
-        'riot.txt')
+    return 'data'
+    # send_from_directory(
+    #     app.static_folder,
+    #     'riot.txt')
 
-
-@app.route('/', methods=['POST', 'GET'])
-async def hello():
+ 
+@app.route('/verify-summoner', methods=['POST'])
+async def verify_summoner():
     """
     An async call serving POST requests from the frontend
     Each request handled is sent to Neo4j for possible modifications
@@ -30,11 +31,20 @@ async def hello():
     """
     if request.method == 'POST':
         data = await request.get_data()
-        res = json.loads(data)
+        print(data)
+        return 'things'
 
-    if request.method == 'GET':
-        return 'Ho'
 
+    # let base = 'https://euw1.api.riotgames.com/'
+    # let summonerName = 'lol/summoner/v3/summoners/by-name/'
+
+# headers: {
+#                         "Origin": "",
+#                         "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+#                         "X-Riot-Token": "RGAPI-d254bc32-739d-42e0-9c2d-bf1c97bc0c88",
+#                         "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+#                         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
+#                     }
 
 if __name__ == '__main__':
     app.run(debug=True,

@@ -44,11 +44,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 validPostcode:
-                    action.request.status === '200'
+                    action.request.status === 200
                     ? true
                     : false,
                 invalidPostcode:
-                    action.request.status !== '200'
+                    action.request.status !== 200
                     ? true
                     : false,
                 requestPostcodeValidation: !state.requestPostcodeValidation
