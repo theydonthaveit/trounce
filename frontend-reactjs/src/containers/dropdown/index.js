@@ -1,28 +1,34 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-// import { setPostcode } from '../../modules/region'
+import { setRegion } from '../../modules/region'
+
+import { FormGroup, Label, Input } from 'reactstrap';
  
 const Dropdown = props => (
-  <div>
-    <p>
-        <select>
-            {props.regions.map(
-                (region, indx) =>
-                    <option value={region}>{region}</option>
-            )}
-        </select>
-    </p>
-  </div>
+  <FormGroup
+    onChange={props.setRegion}>
+    <Label for="exampleSelect">Select</Label>
+    <Input type="select" name="select" id="exampleSelect">
+      {props.regions.map(
+          (region, indx) =>
+            <option
+              key={indx}
+              value={region}>
+              {region.toUpperCase()}
+            </option> )}
+    </Input>
+  </FormGroup>
 )
 
 const mapStateToProps = ({ region }) => ({
-    regions: ['euw', 'na', 'lck', 'lpl']
+  regions: region.regions
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setRegion
     },
     dispatch
   )

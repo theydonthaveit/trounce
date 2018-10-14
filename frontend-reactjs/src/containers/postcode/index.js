@@ -1,38 +1,44 @@
 import React from 'react'
-import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { setPostcode, validatePostcode } from '../../modules/postcode'
-import Dropdown from '../dropdown'
+
+import { FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap'
  
 const Postcode = props => (
-  <div>
-    <p>
-      <input
-        onChange={props.setPostcode}
-        onBlur={props.validatePostcode}
-        disabled={props.requestPostcodeValidation} />
-      <Dropdown />
-    </p>
-    <p>
-      <button onClick={() => props.changePage()}>
-        Go to about page via redux
-      </button>
-    </p>
-  </div>
+  <FormGroup>
+    <Label for="exampleEmail">Valid input</Label>
+    <Input
+      onChange={props.setPostcode}
+      onBlur={props.validatePostcode}
+      disabled={props.requestPostcodeValidation}
+      valid={props.validPostcode}
+      invalid={props.invalidPostcode} />
+    <FormFeedback
+      valid={props.validPostcode}
+      invalid={props.invalidPostcode}>
+      {
+        props.validPostcode
+        ? props.postcodeFeedbackValid
+        : props.postcodeFeedbackInvalid
+      }</FormFeedback>
+    <FormText>Example help text that remains unchanged.</FormText>
+  </FormGroup>
 )
 
 const mapStateToProps = ({ postcode }) => ({
     requestPostcodeValidation: postcode.requestPostcodeValidation,
-    validPostcode: postcode.validPostcode
+    validPostcode: postcode.validPostcode,
+    invalidPostcode: postcode.invalidPostcode,
+    postcodeFeedbackValid: postcode.postcodeFeedbackValid,
+    postcodeFeedbackInvalid: postcode.postcodeFeedbackInvalid
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setPostcode,
-      validatePostcode,
-      changePage: () => push('/about-us')
+      validatePostcode
     },
     dispatch
   )

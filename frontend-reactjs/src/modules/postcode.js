@@ -10,9 +10,12 @@ export const POSTCODE_CHANGED =
 
 const initialState = {
     postcode: null,
-    validPostcode: null,
+    validPostcode: false,
+    invalidPostcode: false,
     requestPostcodeValidation: false,
-    changingPostcodeField: false
+    changingPostcodeField: false,
+    postcodeFeedbackValid: 'Postcode is all good',
+    postcodeFeedbackInvalid: 'Invalid postcode' 
 }
 
 
@@ -40,7 +43,14 @@ export default (state = initialState, action) => {
             // TODO log the status and additional useful info 
             return {
                 ...state,
-                validPostcode: action.request.status,
+                validPostcode:
+                    action.request.status === '200'
+                    ? true
+                    : false,
+                invalidPostcode:
+                    action.request.status !== '200'
+                    ? true
+                    : false,
                 requestPostcodeValidation: !state.requestPostcodeValidation
             }
   
