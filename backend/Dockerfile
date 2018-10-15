@@ -25,7 +25,7 @@ RUN apk update && \
 COPY ./app/logs ${APP_DIR}
 
 # Make port 80 available to the world outside this container
-EXPOSE 80
+EXPOSE 5000
 
 # Run app.py when the container launches
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

@@ -19,10 +19,10 @@ const AccountName = props => (
       invalid={props.invalidAccountName}>
       {
         props.validAccountName
-        ? props.AccountNameFeedbackValid
-        : props.AccountNameFeedbackInvalid
+        ? props.accountNameFeedbackValid
+        : props.accountNameFeedbackInvalid
       }</FormFeedback>
-    <FormText>e.g. DobuleLift</FormText>
+    <FormText hidden={props.validAccountName}>e.g. DobuleLift</FormText>
   </FormGroup>
 )
 

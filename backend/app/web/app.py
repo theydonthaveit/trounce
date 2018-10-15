@@ -3,6 +3,7 @@ Quart Server for backend to server template changes
 to the Neo4j docker instance
 """
 import json
+import requests
 
 from quart import Quart, request, send_from_directory
 from quart_cors import cors
@@ -29,22 +30,29 @@ async def verify_summoner():
     Each request handled is sent to Neo4j for possible modifications
     rtype -> None
     """
+    base = 'https://euw1.api.riotgames.com/'
+    summonerNameEndPoint = 'lol/summoner/v3/summoners/by-name/'
+
+    headers = {
+        "Origin": "",
+        "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+        "X-Riot-Token": "RGAPI-d254bc32-739d-42e0-9c2d-bf1c97bc0c88",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
+    }
+
     if request.method == 'POST':
-        data = await request.get_data()
-        print(data)
-        return 'things'
+        summonerName = await request.get_data()
+        summonerNameDecoded = summonerName.decode("utf-8", "ignore")
 
+        r = requests.get(
+            f'{base}{summonerNameEndPoint}{summonerNameDecoded}',
+            headers=headers )
 
-    # let base = 'https://euw1.api.riotgames.com/'
-    # let summonerName = 'lol/summoner/v3/summoners/by-name/'
-
-# headers: {
-#                         "Origin": "",
-#                         "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-#                         "X-Riot-Token": "RGAPI-d254bc32-739d-42e0-9c2d-bf1c97bc0c88",
-#                         "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-#                         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-#                     }
+        if r.status_code == 200:
+            return json.dumps({'status': 200})
+        else:
+            return json.dumps({'status': 400})
 
 if __name__ == '__main__':
     app.run(debug=True,

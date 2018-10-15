@@ -16,13 +16,14 @@ const Postcode = props => (
       invalid={props.invalidPostcode} />
     <FormFeedback
       valid={props.validPostcode}
-      invalid={props.invalidPostcode}>
+      invalid={props.invalidPostcode ? props.invalidPostcode : null}>
       {
         props.validPostcode
         ? props.postcodeFeedbackValid
         : props.postcodeFeedbackInvalid
-      }</FormFeedback>
-    <FormText>e.g. XX11 11X</FormText>
+      }
+      </FormFeedback>
+    <FormText hidden={props.validPostcode}>e.g. XX11 11X</FormText>
   </FormGroup>
 )
 

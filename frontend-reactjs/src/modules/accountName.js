@@ -94,11 +94,10 @@ export const validateAccountName = (e) => {
                     body: target.value,
                     mode: 'cors'
                 })
-            .then(res => res.text())
-            .then(data => console.log(data)) 
-                // dispatch({
-                //     type: ACCOUNTNAME_VALIDATE_IN_PROGRESS,
-                //     request: data }))
+            .then(res => res.json())
+            .then(data => dispatch({
+                    type: ACCOUNTNAME_VALIDATE_IN_PROGRESS,
+                    request: data }))
             .catch((err) => {
                 // TODO - log result
                 console.log(err)
