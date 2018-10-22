@@ -12,6 +12,7 @@ const App = () => (
     <main>
       <Route exact path="/" component={Home} />
       <Route exact path="/league-of-legends" component={LeagueOfLegends} />
+      {/* <Route exact path="/trounce" component={Trounce} /> */}
     </main>
   </div>
 )

@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Dropdown from '../dropdown'
 import AccountName from '../accountName'
 import Postcode from '../postcode'
+import Gender from '../gender'
+import Trounce from '../trounce'
 
 import { Form } from 'reactstrap';
  
@@ -12,6 +14,8 @@ const LeagueOfLegends = props => (
     <Dropdown />
     <Postcode />
     <AccountName />
+    <Gender />
+    <Trounce />
   </Form>
 )
 

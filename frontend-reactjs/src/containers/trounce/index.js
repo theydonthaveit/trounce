@@ -2,12 +2,11 @@ import React from 'react'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { changeRoute } from '../../modules/changeRoute'
  
-const Home = props => (
+const Trounce = props => (
   <div>
-    <button onClick={() => props.changeRoute('/league-of-legends')}>
-      LoL
+    <button onClick={() => props.changePage()}>
+      trounce
     </button>
   </div>
 )
@@ -17,7 +16,7 @@ const mapStateToProps = () => ({})
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      changeRoute
+      changePage: () => push('/trounce')
     },
     dispatch
   )
@@ -25,4 +24,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(Trounce)
