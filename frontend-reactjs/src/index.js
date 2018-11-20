@@ -15,6 +15,7 @@ render(
     <ConnectedRouter history={history}>
       <div>
         <App />
+        <App />
       </div>
     </ConnectedRouter>
   </Provider>,
