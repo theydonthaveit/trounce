@@ -35,7 +35,6 @@ async def verify_summoner():
         summonerName = await request.get_data()
         summonerNameDecoded = summonerName.decode("utf-8", "ignore")
 
-        
 
 if __name__ == '__main__':
     app.run(debug=True,
